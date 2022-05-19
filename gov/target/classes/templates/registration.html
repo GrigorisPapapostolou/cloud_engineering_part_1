@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+  </head>
+  <body>
+    <!-- Create HTML registration form -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+          <h1>Registration</h1>
+          <form action="/api/v1/gov/registration" method="post" th:object="${userRegistration}">
+
+            <div th:if="${param.error}">
+              <div class="alert alert-danger">Invalid email or user already exists.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="email"> Email </label>
+              <input id="email" class="form-control" th:field="*{email}"  required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="password"> Password </label>
+              <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> User Name </label>
+              <input id="userName" class="form-control" th:field="*{userName}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> First Name </label>
+              <input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> Last Name </label>
+              <input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> Name of mother </label>
+              <input id="nameOfMother" class="form-control" th:field="*{nameOfMother}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('nameOfMother')}" th:errors="*{nameOfMother}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> Name of father </label>
+              <input id="nameOfFather" class="form-control" th:field="*{nameOfFather}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('nameOfFather')}" th:errors="*{nameOfFather}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> Age </label>
+              <input id="age" class="form-control" th:field="*{age}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="userName"> Nationality </label>
+              <input id="nationality" class="form-control" th:field="*{nationality}" required autofocus="autofocus"/>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></div>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Register</button>
+              <span>Already registered ? <a href="/api/v1/gov/login">Log in here</a></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

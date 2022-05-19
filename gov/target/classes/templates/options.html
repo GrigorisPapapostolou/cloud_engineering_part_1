@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sth="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>Services</h2>
+        </div>
+        <br>
+        <form th:action="@{/api/v1/gov/options/{id}(id=${id})}" method="post">
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <img th:src="@{/images/certificate.png}" class="card-img-top" alt="marital status">
+
+                        <div class="card-body">
+                            <h3 class="card-title">Responsible Statement</h3>
+                            <p class="card-text">
+                                The responsible statement that you will issue is legally equivalent to a responsible statement
+                                that bears the original signature and you can either send it electronically, or print it and
+                                submit it to a public service.
+                            </p>
+                            <input type="submit" name="statement" id="statement" class="form-control btn btn-primary" value="Download"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <img th:src="@{/images/marital.png}" class="card-img-top" alt="marital status">
+
+                        <div class="card-body">
+                            <h3 class="card-title">Certificate of Marital Status</h3>
+                            <p class="card-text">
+                                Issue a certificate of marital status from the family portion you have your regular registration.
+                            </p>
+                            <input type="submit" name="marital" id="marital-submit" class="form-control btn btn-primary" value="Download" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
