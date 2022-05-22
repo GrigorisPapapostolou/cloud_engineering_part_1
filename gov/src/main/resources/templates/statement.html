@@ -17,7 +17,7 @@
                     <h1>Declaration Statement</h1>
                     <p>At my own risk and knowing the sanctions, provided by the provisions of par. 6 of article 22 of Law 7845/65978, I declare that:</p>
                     <br>
-                    <form  th:action="@{/api/v1/gov/statement/{id}(id=${id})}" method="GET" th:object="${statement}">
+                    <form  th:action="@{/api/v1/gov/statement/{id}(id=${id})}" method="post" th:object="${statement}">
                         <div class="form-group">
                             <textarea id="text" class="form-control" th:field="*{statement}" style="height:200px;width:500px"></textarea>
                             <div class="alert alert-warning" th:if="${#fields.hasErrors('statement')}" th:errors="*{statement}"></div>
