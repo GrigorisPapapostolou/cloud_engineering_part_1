@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Marital</title>
@@ -15,101 +15,33 @@
             <div class="col-md-8">
                 <h3><strong>Personal Info</strong></h3><br><br>
                 <div class="table-responsive">
-                    <table class="table table-user-information">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                    Identificacion
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                123456789
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-user  text-primary"></span>
-                                    Name
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                Bootdey
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-cloud text-primary"></span>
-                                    Lastname
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                Bootstrap
-                            </td>
-                        </tr>
+                    <form th:action="@{/api/v1/gov/marital/{id}(id=${id})}" method="post" th:object="${marital}">
 
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-bookmark text-primary"></span>
-                                    Username
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                bootnipets
-                            </td>
-                        </tr>
+                        <table class="table table-user-information">
+                            <tbody>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-user  text-primary"></span>   First Name</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.firstName}" th:field="${marital.firstName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-cloud text-primary"></span>  Lastname</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.lastName}" th:field="${marital.lastName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-bookmark text-primary"></span>   Username</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.userName}" th:field="${marital.userName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-envelope text-primary"></span>   Email</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.email}" th:field="${marital.email}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-eye-open text-primary"></span>
-                                    Role
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                Admin
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-envelope text-primary"></span>
-                                    Email
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                noreply@email.com
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-calendar text-primary"></span>
-                                    created
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                20 jul 20014
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-calendar text-primary"></span>
-                                    Modified
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                20 jul 20014 20:00:00
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Download PDF</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

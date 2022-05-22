@@ -17,7 +17,7 @@
         <div class="col-md-6 col-md-offset-3">
 
           <h1>Registration</h1>
-          <form action="/api/v1/gov/registration" method="post" th:object="${userRegistration}">
+          <form th:action="@{/api/v1/gov/registration}" method="post" th:object="${userRegistration}">
 
             <div th:if="${param.error}">
               <div class="alert alert-danger">Invalid email or user already exists.</div>
@@ -42,44 +42,20 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="userName"> First Name </label>
+              <label class="control-label" for="firstName"> First Name </label>
               <input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus"/>
               <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="userName"> Last Name </label>
+              <label class="control-label" for="lastName"> Last Name </label>
               <input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus"/>
               <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="userName"> Name of mother </label>
-              <input id="nameOfMother" class="form-control" th:field="*{nameOfMother}" required autofocus="autofocus"/>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('nameOfMother')}" th:errors="*{nameOfMother}"></div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label" for="userName"> Name of father </label>
-              <input id="nameOfFather" class="form-control" th:field="*{nameOfFather}" required autofocus="autofocus"/>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('nameOfFather')}" th:errors="*{nameOfFather}"></div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label" for="userName"> Age </label>
-              <input id="age" class="form-control" th:field="*{age}" required autofocus="autofocus"/>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label" for="userName"> Nationality </label>
-              <input id="nationality" class="form-control" th:field="*{nationality}" required autofocus="autofocus"/>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></div>
-            </div>
-
-            <div class="form-group">
               <button type="submit" class="btn btn-success">Register</button>
-              <span>Already registered ? <a href="/api/v1/gov/login">Log in here</a></span>
+              <span>Already registered ? <a  th:href="@{/api/v1/gov/login}">Log in here</a></span>
             </div>
           </form>
         </div>
