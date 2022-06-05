@@ -29,39 +29,39 @@ services:
       - postgres
     restart: unless-stopped
 
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - "9411:9411"
-    networks:
-      - spring
-    restart: unless-stopped
-
-  eureka-server:
-    image: greg94/eureka-server:latest
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-
-  api-gateway:
-    image: greg94/api-gateway:latest
-    container_name: api-gateway
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-      - eureka-server
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name: zipkin
+#    ports:
+#      - "9411:9411"
+#    networks:
+#      - spring
+#    restart: unless-stopped
+#
+#  eureka-server:
+#    image: greg94/eureka-server:latest
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#
+#  api-gateway:
+#    image: greg94/api-gateway:latest
+#    container_name: api-gateway
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - eureka-server
 
   gov:
     image: greg94/gov:latest
@@ -74,9 +74,9 @@ services:
       - spring
       - postgres
     depends_on:
-      - zipkin
-      - eureka-server
       - postgres
+#      - zipkin
+#      - eureka-server
 
   marital-status:
     image: greg94/marital-status:latest
@@ -87,10 +87,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
       - spring
-    depends_on:
-      - zipkin
-      - eureka-server
-      - postgres
 
   statement:
     image: greg94/statement:latest
@@ -101,10 +97,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
       - spring
-    depends_on:
-      - zipkin
-      - eureka-server
-      - postgres
+
 
 networks:
   postgres:

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gov
+  labels:
+    app: gov
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: gov
+      labels:
+        app: gov
+    spec:
+      containers:
+        - name: gov
+          image: greg94/gov:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: gov

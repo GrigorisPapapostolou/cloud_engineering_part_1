@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Marital</title>
@@ -15,7 +16,7 @@
             <div class="col-md-8">
                 <h3><strong>Personal Info</strong></h3><br><br>
                 <div class="table-responsive">
-                    <form th:action="@{/api/v1/gov/marital/{id}(id=${id})}" method="post" th:object="${marital}">
+                    <form method="post" th:object="${marital}">
 
                         <table class="table table-user-information">
                             <tbody>
@@ -39,7 +40,8 @@
                         </table>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Download PDF</button>
+                            <button th:formaction="@{/api/v1/gov/marital/{id}/pdf (id=${id})}" type="submit" name="action" class="btn btn-primary">Download PDF</button>
+                            <button th:formaction="@{/api/v1/gov/marital/{id}/image (id=${id})}" type="submit" name="action" class="btn btn-secondary">Download PNG</button>
                         </div>
                     </form>
                 </div>
