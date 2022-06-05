@@ -16,7 +16,7 @@ import java.util.Date;
 @Service
 @Slf4j
 public class PdfService {
-    public void export_marital_certifcate(HttpServletResponse response, MaritalResponseDto marital) throws IOException {
+    public void export_marital_certificate(HttpServletResponse response, MaritalResponseDto marital) throws IOException {
         log.info("Service - Download Marital PDF");
 
         // Set up response
@@ -71,7 +71,7 @@ public class PdfService {
 
 
     public void export_statement_declaration(HttpServletResponse response, StatementResponseDto statementResponseDto) throws IOException {
-        log.info("Service - Download PDF");
+        log.info("Service - Download Statement PDF");
 
         // Set up response
         response.setContentType("application/pdf");

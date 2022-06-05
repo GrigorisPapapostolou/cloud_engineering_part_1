@@ -9,16 +9,15 @@ import com.cloud.engineering.clients.statement.StatementResponseDto;
 import com.cloud.engineering.gov.dto.*;
 import com.cloud.engineering.gov.service.GovService;
 import com.cloud.engineering.gov.service.PdfService;
-import com.netflix.discovery.EurekaClient;
+import com.cloud.engineering.gov.service.PngService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -30,12 +29,8 @@ public class GovController {
 
     @Autowired
     private PdfService pdfService;
-
     @Autowired
-    private EurekaClient eurekaClient;
-
-    @Autowired
-    private RestTemplate restTemplate;
+    private PngService pngService;
 
     @Autowired
     private StatementClient statementClient;
@@ -65,7 +60,7 @@ public class GovController {
     }
 
     @PostMapping("/api/v1/gov/login")
-    public String validateUser(@ModelAttribute("userLogin") UserLoginDto loginDto, RedirectAttributes redirectAttributes) {
+    public String validateUser(@ModelAttribute("userLogin") UserLoginDto loginDto) {
         log.info("Controller - Perform validation of user");
         UserDto user = govService.findUserByEmail(loginDto.getEmail());
         if (user != null) {
@@ -98,21 +93,35 @@ public class GovController {
         }
     }
 
-    @PostMapping("/api/v1/gov/statement/{id}")
-    public void callStatementService(HttpServletResponse response, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("statement") StatementDto statementDto) throws IOException {
-        log.info("Controller - Call statement microservice");
+    @PostMapping("/api/v1/gov/statement/{id}/pdf")
+    public void callStatementPdfService(HttpServletResponse response, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("statement") StatementDto statementDto) throws IOException {
+        log.info("Controller - Call statement microservice PDF");
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<StatementDto> req = new HttpEntity<>(statementDto, headers);
         ResponseEntity<StatementResponseDto> res = statementClient.getStatement(id, statementDto);
         this.pdfService.export_statement_declaration(response, res.getBody());
     }
 
-    @PostMapping("/api/v1/gov/marital/{id}")
-    public void callMaritalService(HttpServletResponse response, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("com/cloud/engineering/clients/marital") UserDto userDto) throws IOException {
-        log.info("Controller - Call marital microservice");
+    @PostMapping("/api/v1/gov/statement/{id}/image")
+    public void callStatementImageService(HttpServletResponse response, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("statement") StatementDto statementDto) throws IOException {
+        log.info("Controller - Call statement microservice PNG");
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<UserDto> req = new HttpEntity<>(userDto, headers);
+        ResponseEntity<StatementResponseDto> res = statementClient.getStatement(id, statementDto);
+        this.pngService.export_statement_declaration(response, res.getBody());
+    }
+
+    @PostMapping("/api/v1/gov/marital/{id}/pdf")
+    public void callMaritalServicePdf(HttpServletResponse response, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("com/cloud/engineering/clients/marital") UserDto userDto) throws IOException {
+        log.info("Controller - Call marital microservice PDF");
+        headers.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<MaritalResponseDto> res = maritalClient.getMarital(id, userDto);
-        this.pdfService.export_marital_certifcate(response, res.getBody());
+        this.pdfService.export_marital_certificate(response, res.getBody());
+    }
+
+    @PostMapping("/api/v1/gov/marital/{id}/image")
+    public void callMaritalServiceImage(HttpServletResponse response, HttpServletRequest request, @RequestHeader HttpHeaders headers, @PathVariable String id, @ModelAttribute("com/cloud/engineering/clients/marital") UserDto userDto) throws IOException {
+        log.info("Controller - Call marital microservice PNG");
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<MaritalResponseDto> res = maritalClient.getMarital(id, userDto);
+        this.pngService.export_marital_certifcate(response, res.getBody());
     }
 }
