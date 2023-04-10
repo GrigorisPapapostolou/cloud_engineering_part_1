@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Marital</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container bootstrap snippets bootdey">
+    <div class="panel-body inf-content">
+        <div class="row">
+            <div class="col-md-8">
+                <h3><strong>Personal Info</strong></h3><br><br>
+                <div class="table-responsive">
+                    <form method="post" th:object="${marital}">
+
+                        <table class="table table-user-information">
+                            <tbody>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-user  text-primary"></span>   First Name</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.firstName}" th:field="${marital.firstName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-cloud text-primary"></span>  Lastname</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.lastName}" th:field="${marital.lastName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-bookmark text-primary"></span>   Username</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.userName}" th:field="${marital.userName}"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="glyphicon glyphicon-envelope text-primary"></span>   Email</strong></td>
+                                <td class="text-primary"><input type="hidden" th:text="${marital.email}" th:field="${marital.email}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="form-group">
+                            <button th:formaction="@{/api/v1/gov/marital/{id}/pdf (id=${id})}" type="submit" name="action" class="btn btn-primary">Download PDF</button>
+                            <button th:formaction="@{/api/v1/gov/marital/{id}/image (id=${id})}" type="submit" name="action" class="btn btn-secondary">Download PNG</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

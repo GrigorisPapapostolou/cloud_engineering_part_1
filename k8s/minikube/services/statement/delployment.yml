@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statement
+  labels:
+    app: statement
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: statement
+      labels:
+        app: statement
+    spec:
+      containers:
+        - name: statement
+          image: greg94/statement:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: statement
+
+
+
+
+
+
+
+
+
+
+
+      ++++++++++++++++++++++++++++++++`
